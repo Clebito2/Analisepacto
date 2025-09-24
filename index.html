@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de casos para a Pacto Soluções</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Principal */
+            --primary-bg: #06192a;
+            --card-bg: #0A243D;
+            --accent-color: #00e800;
+            /* Textos */
+            --text-primary: #ffffff;
+            --text-muted: #cccccc;
+            --text-subtle: #a0a0a0;
+            /* Bordas e Efeitos */
+            --border-color: rgba(255, 255, 255, 0.1);
+            --accent-glow: 0 0 8px rgba(0, 232, 0, 0.7);
+            /* Famílias de Fonte */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Merriweather', serif;
+            /* Tamanhos de Fonte (Mobile-First) */
+            --font-size-base: 1.1rem;
+            --font-size-h3: 1.5rem;
+            --font-size-h2: clamp(2rem, 4vw, 2.5rem);
+            --font-size-h1: clamp(2.5rem, 5vw, 3rem);
+            /* Escala de Espaçamento */
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+            background-color: var(--primary-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-attachment: fixed;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-sm) var(--space-md);
+            background-color: rgba(6, 25, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            height: 40px;
+        }
+        
+        main {
+            padding-top: 100px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-md);
+        }
+
+        section {
+            padding: var(--space-xl) 0;
+        }
+        
+        h1, h2 {
+            font-weight: 700;
+            color: var(--accent-color);
+            text-shadow: var(--accent-glow);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: var(--font-size-h1);
+            margin-bottom: var(--space-sm);
+        }
+
+        h2 {
+            font-size: var(--font-size-h2);
+            margin-top: 0;
+            margin-bottom: var(--space-lg);
+        }
+
+        h3 {
+            font-size: var(--font-size-h3);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        p {
+            color: var(--text-subtle);
+            font-size: var(--font-size-base);
+            text-align: justify;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: var(--space-md);
+            border-radius: 12px;
+            margin-bottom: var(--space-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--accent-glow);
+        }
+
+        .card:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 4px;
+        }
+
+        .diagnostico-card {
+            border-left: 3px solid var(--accent-color);
+            padding-left: var(--space-md);
+            text-align: left;
+        }
+        
+        .diagnostico-card h3 {
+            text-align: left;
+        }
+        
+        .diagnostico-card p {
+            text-align: justify;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            color: var(--text-muted);
+            text-align: left;
+        }
+        
+        li {
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-md);
+            padding-left: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+            text-align: left;
+        }
+
+        .timeline-item h3 {
+            margin-top: 0;
+            font-family: var(--font-primary);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--primary-bg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Estilos específicos para a seção de apresentação */
+        #apresentacao {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            padding: 0; /* Remove o padding do container */
+            margin: 0; /* Remove a margem do container */
+        }
+        
+        .bold {
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .content-container {
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+        }
+        
+        .content-container h2 {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-md);
+                align-items: start;
+            }
+            .full-width {
+                grid-column: span 2;
+            }
+            .timeline-item {
+                padding-left: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-36.png" alt="Logo Live Consultoria">
+    </header>
+    <main>
+        <section id="apresentacao">
+            <h1 class="main-title">Análise de casos para a Pacto Soluções</h1>
+        </section>
+
+        <section id="analise-diagnostico">
+            <div class="content-container">
+                <div class="card full-width fadeIn" style="animation-delay: 0.2s;">
+                    <div class="diagnostico-card" style="text-align: center;">
+                        <h2 class="section-title">Impressões Iniciais e Plano de Ação</h2>
+                        <hr style="border-color: var(--border-color); margin: var(--space-md) auto; width: 50%;">
+                        <h3 class="font-secondary">Impressões Iniciais</h3>
+                        <p>
+                            <span class="bold">Case 1:</span> Este é um cliente que demonstra desinteresse e um alto risco de *churn* (cancelamento). Ele está em fase de negociação com um concorrente, desmarcando reuniões e parando de usar o suporte e as novas funcionalidades. A ausência de engajamento aponta para uma falha na gestão de relacionamento e na percepção de valor do nosso produto.
+                        </p>
+                        <p>
+                            <span class="bold">Case 2:</span> Este é um cliente desengajado, com baixo ou nenhum uso do produto e que nunca teve um plano de ação estruturado. A ameaça aqui é dupla: um concorrente que oferece uma solução "completa" e um recurso adicional que o cliente percebe como um custo extra em nosso sistema. A falta de proatividade anterior na gestão desse cliente nos coloca em desvantagem.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plano-de-acao">
+            <div class="content-container">
+                <div class="card full-width fadeIn" style="animation-delay: 0.4s;">
+                    <div class="diagnostico-card" style="text-align: center;">
+                        <h2 class="section-title">Plano de Ação</h2>
+                        <p>A estratégia para ambos os casos é reverter o quadro de desengajamento e risco, demonstrando valor e proatividade. As ações devem ser ágeis e personalizadas para as necessidades de cada cliente.</p>
+                        <hr style="border-color: var(--border-color); margin: var(--space-md) auto; width: 50%;">
+                        <h3 class="font-secondary">Plano de Ação para o Case 1</h3>
+                        <div class="timeline">
+                            <div class="timeline-item" style="animation-delay: 0.6s;">
+                                <h4>Data de Início e Fim</h4>
+                                <p>O plano de ação deve ser executado no prazo máximo de uma <span class="bold">semana</span>, a partir do contato inicial. O objetivo é criar um senso de urgência e acelerar a negociação antes que o cliente finalize a troca.</p>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 0.8s;">
+                                <h4>Ações a serem executadas</h4>
+                                <ul>
+                                    <li><span class="bold">Por você (Pacto):</span>
+                                        <ul>
+                                            <li>Análise aprofundada do histórico de uso do cliente: quais funcionalidades ele usa, quais não usa, qual o nível de engajamento dos alunos e da gestão.</li>
+                                            <li>Agendar uma reunião urgente e estratégica com o cliente, usando um argumento forte para que ele aceite o encontro.</li>
+                                            <li>Preparar um diagnóstico de valor, destacando o retorno sobre o investimento (ROI) que o cliente já obteve com a Pacto.</li>
+                                            <li>Propor um plano de sucesso personalizado com um cronograma de implementação de novas funcionalidades e treinamento, focado nos pontos de dor do cliente.</li>
+                                            <li>Oferecer uma proposta de valor diferenciada, como um pacote de funcionalidades adicionais sem custo por um período ou um desconto na renovação, para mitigar a proposta do concorrente.</li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="bold">Pelo cliente (Academia CS):</span>
+                                        <ul>
+                                            <li>Participar da reunião estratégica e fornecer feedback honesto sobre os motivos do desinteresse.</li>
+                                            <li>Comprometer-se a analisar a proposta de valor e o plano de sucesso oferecidos.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 1.0s;">
+                                <h4>Formas de contato</h4>
+                                <ul>
+                                    <li><span class="bold">Primeiro contato:</span> Ligação telefônica. É a forma mais direta e pessoal para demonstrar urgência e tentar agendar a reunião.</li>
+                                    <li><span class="bold">Acompanhamento:</span> E-mail com a agenda da reunião e os pontos a serem discutidos.</li>
+                                    <li><span class="bold">Comunicação contínua:</span> WhatsApp para agilidade em agendamentos ou para sanar dúvidas rápidas.</li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 1.2s;">
+                                <h4>Argumentos utilizados com o cliente</h4>
+                                <ul>
+                                    <li>"Sabemos que você tem avaliado outras opções, mas antes de tomar qualquer decisão, gostaríamos de ter a oportunidade de entender suas necessidades atuais e mostrar como podemos resolvê-las juntos. Valorizamos nossa parceria e acreditamos que há funcionalidades que podem gerar um valor significativo para sua gestão e seus alunos."</li>
+                                    <li>"Nossa proposta não é apenas um software, mas uma parceria para otimizar a gestão da sua academia. Queremos mostrar, com dados, o valor que já geramos e como podemos construir um futuro de sucesso juntos."</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr style="border-color: var(--border-color); margin: var(--space-md) auto; width: 50%;">
+                        <h3 class="font-secondary">Plano de Ação para o Case 2</h3>
+                        <div class="timeline">
+                            <div class="timeline-item" style="animation-delay: 1.4s;">
+                                <h4>Data de Início e Fim</h4>
+                                <p>O plano deve ser iniciado imediatamente após a identificação do risco e ter a primeira etapa concluída em <span class="bold">cinco dias úteis</span>.</p>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 1.6s;">
+                                <h4>Ações a serem executadas</h4>
+                                <ul>
+                                    <li><span class="bold">Por você (Pacto):</span>
+                                        <ul>
+                                            <li>Analisar o histórico de interação com o cliente para identificar a causa do baixo engajamento.</li>
+                                            <li>Montar uma apresentação focada em casos de sucesso de clientes similares (academias com 20+ unidades) que utilizam o sistema de forma completa.</li>
+                                            <li>Agendar uma reunião de diagnóstico para entender as necessidades específicas da Academia CX e o motivo do interesse no concorrente.</li>
+                                            <li>Mapear o recurso adicional que o concorrente oferece e que eles percebem como um custo extra, para poder neutralizar esse argumento.</li>
+                                            <li>Propor um piloto de implementação de novas funcionalidades e treinamentos com um grupo de unidades da academia.</li>
+                                            <li>Estruturar um plano de sucesso detalhado, com metas claras e um cronograma de implantação completo para todas as unidades, destacando o valor de cada funcionalidade.</li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="bold">Pelo cliente (Academia CX):</span>
+                                        <ul>
+                                            <li>Participar da reunião para discutir as necessidades e os pontos de dor.</li>
+                                            <li>Disponibilizar um ou mais pontos de contato para os treinamentos e para o piloto.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 1.8s;">
+                                <h4>Formas de contato</h4>
+                                <ul>
+                                    <li><span class="bold">Primeiro contato:</span> E-mail formal, com uma agenda clara, focada em "Revisão Estratégica da Parceria".</li>
+                                    <li><span class="bold">Acompanhamento:</span> Ligação para confirmar o recebimento do e-mail e reforçar a importância da reunião.</li>
+                                    <li><span class="bold">Comunicação contínua:</span> Plataforma de videoconferência para as reuniões e WhatsApp para agilidade na troca de informações.</li>
+                                </ul>
+                            </div>
+                            <div class="timeline-item" style="animation-delay: 2.0s;">
+                                <h4>Argumentos utilizados com o cliente</h4>
+                                <ul>
+                                    <li>"Sabemos que a gestão de 20 unidades é complexa, e nosso objetivo é ser o seu parceiro estratégico para essa expansão. Gostaríamos de apresentar um plano de sucesso que pode otimizar a gestão e demonstrar o potencial completo da nossa plataforma. Muitas academias do seu porte alcançaram resultados incríveis com o nosso sistema, e queremos que vocês sejam os próximos."</li>
+                                    <li>"Entendemos que existem outras soluções no mercado, e é por isso que queremos agendar um tempo para entender suas necessidades e mostrar como nosso sistema já atende 'tudo que o nosso faz', com a vantagem de podermos oferecer um pacote mais vantajoso e alinhado aos seus objetivos de negócio a longo prazo."</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container full-width" style="text-align: center;">
+            <img src="https://raw.githubusercontent.com/Clebito2/layout/main/Logo%20live%20oficial-34.png" alt="Logo Live Consultoria" style="height: 50px; margin-bottom: var(--space-sm);">
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fadeIn');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.2
+            });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
